@@ -6,7 +6,6 @@ from config import mongo
 server = MongoClient(mongo)
 db = server.tidewater_db
 
-# collection.insert_one({'x': 1}).inserted_id
 
 products = [
     "water_level",
@@ -81,50 +80,8 @@ def mongoIns(r, i):
                 db[products[i]].insert_one(lst).inserted_id
 
 
-# def mongoIns(r, i):
-#     if i < 2:
-#         for time in range(len(r["data"])):
-#             if db.tide_data.find_one({"time": r["data"][time]["t"]}):
-#                 db.tide_data.update_one(
-#                     {"time": r["data"][time]["t"]},
-#                     {"$set": {f"{products[i]} data": r["data"][time]["v"]}},
-#                 )
-#             else:
-#                 lst = {}
-#                 lst["info"] = r["metadata"]
-#                 lst["time"] = r["data"][time]["t"]
-#                 lst[f"{products[i]} data"] = r["data"][time]["v"]
-#                 db.tide_data.insert_one(lst).inserted_id
-#     else:
-#         for time in range(len(r["data"])):
-#             if db.tide_data.find_one({"time": r["data"][time]["t"]}):
-#                 db.tide_data.update_one(
-#                     {"time": r["data"][time]["t"]},
-#                     {
-#                         "$set": {
-#                             f"{products[i]} data": {
-#                                 "Speed": r["data"][time]["s"],
-#                                 "Direction": r["data"][time]["dr"],
-#                                 "Gust": r["data"][time]["g"],
-#                             }
-#                         }
-#                     },
-#                 )
-#             else:
-#                 lst = {}
-#                 lst["info"] = r["metadata"]
-#                 lst["time"] = r["data"][time]["t"]
-#                 lst[f"{products[i]} data"] = {
-#                     "Speed": r["data"][time]["s"],
-#                     "Direction": r["data"][time]["dr"],
-#                     "Gust": r["data"][time]["g"],
-#                 }
-#                 db.tide_data.insert_one(lst).inserted_id
-
-
 if __name__ == "__main__":
 
     for i in range(3):
         req(i)
 
-# db.tide_data.createIndex( { "time": 1 }, {unique:true} )

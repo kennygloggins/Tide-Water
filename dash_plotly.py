@@ -60,11 +60,6 @@ def update_graph(option_slctd):
 
     container = "The category chosen by user was: {}".format(option_slctd)
 
-    dff = df.copy()
-    # dff = dff[dff["Category"] == option_slctd]
-    # dff = dff[dff["Affected by"] == "Varroa_mites"]
-
-    # Plotly Express
     fig = go.Figure()
 
     if option_slctd == "wind":
