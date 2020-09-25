@@ -1,6 +1,5 @@
 import pandas as pd
 from pymongo import MongoClient
-import plotly.express as px
 import plotly.graph_objects as go
 import dash
 import dash_core_components as dcc
@@ -10,14 +9,14 @@ from config import mongo
 
 labels = {
     "water_level": ["height", "Feet"],
-    "water_temperature": ["temp", "Temperature(defrees F)"],
+    "water_temperature": ["temp", "Temperature(degrees F)"],
     "wind": ["Speed", "Gust", "Direction"],
 }
 
 app = dash.Dash(__name__)
 
 server = MongoClient(mongo)
-db = server.tidewater_db
+db = server["Ocean_City_Inlet"]
 
 # pd.set_option("display.max_columns", 10)
 # pd.set_option("display.max_rows", 85)

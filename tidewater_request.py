@@ -4,8 +4,10 @@ from config import mongo
 
 # Setup connection to mongodb collection
 server = MongoClient(mongo)
-db = server.tidewater_db
+# db = server.tidewater_db
 
+
+ids = ["8570283"]
 
 products = [
     "water_level",
@@ -22,13 +24,13 @@ label = [
 ]
 
 
-def req(i):
+def req(i, k):
     # list of items we want to request from NOAA CO-OP api
     payload = {
         # 'begin_date': f'{begin_date}',
         # 'end_date': f'{end_date}',
         "date": "recent",
-        "station": "8570283",
+        "station": k,
         "product": products[i],
         "time_zone": "lst",
         "application": "kgl",
@@ -43,6 +45,8 @@ def req(i):
 
 
 def mongoIns(r, i):
+    NAME = r["metadata"]["name"].replace(" ", "_")
+    db = server[NAME]
     if i < 2:
         for time in range(len(r["data"])):
             if db[products[i]].find_one({"time": r["data"][time]["t"]}):
@@ -82,6 +86,7 @@ def mongoIns(r, i):
 
 if __name__ == "__main__":
 
-    for i in range(3):
-        req(i)
+    for k in ids:
+        for i in range(3):
+            req(i, k)
 
